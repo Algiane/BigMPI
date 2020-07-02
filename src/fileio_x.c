@@ -195,6 +195,7 @@ int MPIX_File_iread_shared_x(MPI_File fh, void *buf, MPI_Count count, MPI_Dataty
     return rc;
 }
 
+#ifdef HAVE_RECENT_MPI
 int MPIX_File_iread_at_all_x(MPI_File fh, MPI_Offset offset, void *buf, MPI_Count count, MPI_Datatype datatype, MPI_Request *request)
 {
     int rc = MPI_SUCCESS;
@@ -226,7 +227,7 @@ int MPIX_File_iread_all_x(MPI_File fh, void *buf, MPI_Count count, MPI_Datatype 
     }
     return rc;
 }
-
+#endif
 
 int MPIX_File_write_at_x(MPI_File fh, MPI_Offset offset, const void * buf, MPI_Count count, MPI_Datatype datatype, MPI_Status *status)
 {
@@ -420,6 +421,7 @@ int MPIX_File_iwrite_shared_x(MPI_File fh, const void *buf, MPI_Count count, MPI
     return rc;
 }
 
+#ifdef HAVE_RECENT_MPI
 int MPIX_File_iwrite_at_all_x(MPI_File fh, MPI_Offset offset, const void *buf, MPI_Count count, MPI_Datatype datatype, MPI_Request *request)
 {
     int rc = MPI_SUCCESS;
@@ -451,3 +453,4 @@ int MPIX_File_iwrite_all_x(MPI_File fh, const void *buf, MPI_Count count, MPI_Da
     }
     return rc;
 }
+#endif

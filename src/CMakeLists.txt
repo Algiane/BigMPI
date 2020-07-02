@@ -9,6 +9,18 @@ add_library(bigmpi ${LIB_LINKAGE_TYPE} ${SOURCES} "bigmpiconf.h")
 
 target_link_libraries ( bigmpi ${MPI_LIBRARIES} )
 
+#Check MPI_File_i[read|write]* support
+unset(HAVE_RECENT_MPI CACHE)
+include(CheckSymbolExists)
+list ( APPEND CMAKE_REQUIRED_LIBRARIES ${MPI_LIBRARY} )
+list ( APPEND CMAKE_REQUIRED_INCLUDES ${MPI_INCLUDE_PATH} )
+check_symbol_exists(MPI_File_iread_at_all mpi.h HAVE_RECENT_MPI)
+mark_as_advanced(HAVE_RECENT_MPI)
+
+if ( HAVE_RECENT_MPI )
+  add_definitions(-DHAVE_RECENT_MPI)
+endif ()
+
 set_target_properties ( bigmpi PROPERTIES PUBLIC_HEADER "bigmpi.h")
 
 if (NOT CMAKE_INSTALL_LIBDIR)
